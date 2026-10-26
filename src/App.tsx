@@ -10,6 +10,7 @@ import {
 } from "lucide-react"
 
 import { DaisyLogo } from "@/components/brand"
+import { RouteLink } from "@/components/route-link"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -197,7 +198,7 @@ export function App() {
       >
         <div className="absolute bottom-0 -left-[6%] h-[112%]">
           <img
-            src="/daisyimage.png"
+            src={`${import.meta.env.BASE_URL}daisyimage.png`}
             alt=""
             // Full strength under the person and icons, then the waves on the right recede to a soft wash
             className="h-full w-auto max-w-none [mask-image:linear-gradient(to_right,black_45%,rgb(0_0_0/0.3)_62%,rgb(0_0_0/0.18)_90%,transparent)]"
@@ -514,6 +515,14 @@ export function App() {
           )}
         </main>
       </div>
+      <footer className="relative mx-auto w-full max-w-2xl px-5 pb-6 text-sm sm:px-8 lg:max-w-6xl">
+        <RouteLink
+          page="login"
+          className="rounded-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+        >
+          Admin login
+        </RouteLink>
+      </footer>
     </div>
   )
 }
