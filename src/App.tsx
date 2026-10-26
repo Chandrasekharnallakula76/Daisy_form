@@ -110,6 +110,9 @@ function toggle<T>(list: T[], value: T, checked: boolean) {
 
 const inputClass = "h-11 rounded-lg bg-background px-3.5 text-[15px]"
 
+const eventBadgeClass =
+  "w-fit rounded-full bg-linear-to-r from-cyan-50 to-violet-50 px-3.5 py-1 font-semibold text-blue-700 ring-1 ring-blue-200 dark:from-blue-950/60 dark:to-violet-950/60 dark:text-blue-300 dark:ring-blue-800"
+
 // Bordered, selectable option tiles from tablet up; plain checkbox rows on phones.
 const optionCardClass =
   "sm:gap-3 sm:rounded-lg sm:border sm:border-input sm:bg-background sm:pl-4 sm:shadow-xs sm:transition-colors sm:hover:border-emerald-300 sm:has-data-checked:border-emerald-500 sm:has-data-checked:bg-emerald-50/70 sm:has-data-checked:ring-1 sm:has-data-checked:ring-emerald-500/30 dark:sm:has-data-checked:bg-emerald-900/20"
@@ -177,7 +180,7 @@ export function App() {
   }
 
   return (
-    <div className="relative min-h-svh overflow-hidden bg-linear-to-br from-sky-50 via-white to-emerald-50/60 dark:from-background dark:via-background dark:to-background">
+    <div className="relative min-h-svh overflow-hidden bg-linear-to-br from-cyan-50/70 via-white to-violet-50/70 dark:from-background dark:via-background dark:to-background">
       {/* Background decoration */}
       <div
         aria-hidden
@@ -185,7 +188,7 @@ export function App() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/2 -left-40 size-[26rem] rounded-full bg-emerald-100/70 blur-3xl lg:hidden dark:bg-emerald-900/20"
+        className="pointer-events-none absolute top-1/2 -left-40 size-[26rem] rounded-full bg-violet-100/50 blur-3xl lg:hidden dark:bg-violet-900/20"
       />
       {/* Desktop: illustration sits low under the intro column, fading in from the top; its logo strip is cropped off */}
       <div
@@ -196,7 +199,8 @@ export function App() {
           <img
             src="/daisyimage.png"
             alt=""
-            className="h-full w-auto max-w-none mask-r-from-90%"
+            // Full strength under the person and icons, then the waves on the right recede to a soft wash
+            className="h-full w-auto max-w-none [mask-image:linear-gradient(to_right,black_45%,rgb(0_0_0/0.3)_62%,rgb(0_0_0/0.18)_90%,transparent)]"
           />
         </div>
       </div>
@@ -204,10 +208,19 @@ export function App() {
       <div className="relative mx-auto grid w-full max-w-2xl gap-8 px-5 py-8 sm:px-8 sm:py-12 lg:max-w-6xl lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-14 lg:px-8 lg:py-12">
         {/* Intro */}
         <aside className="flex flex-col gap-6 lg:sticky lg:top-12 lg:self-start">
-          <DaisyLogo />
+          {/* Phones: logo and event badge share a header row; tablet up keeps the badge above the heading */}
+          <div className="flex items-center justify-between gap-4 border-b border-blue-900/10 pb-5 sm:border-0 sm:pb-0 dark:border-border">
+            <DaisyLogo />
+            <span
+              className={`${eventBadgeClass} inline-flex items-center gap-1.5 text-xs sm:hidden`}
+            >
+              <span className="size-1.5 rounded-full bg-blue-600 dark:bg-blue-300" />
+              GIC Event
+            </span>
+          </div>
 
           <div className="flex flex-col gap-4 lg:mt-10">
-            <span className="w-fit rounded-full bg-emerald-100/80 px-3.5 py-1 text-sm font-semibold text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-300 dark:ring-emerald-800">
+            <span className={`${eventBadgeClass} hidden text-sm sm:inline`}>
               GIC Event
             </span>
             <h1 className="text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
@@ -222,7 +235,7 @@ export function App() {
           <ul className="hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-1 lg:gap-5">
             {HIGHLIGHTS.map(({ icon: Icon, title, text }) => (
               <li key={title} className="flex items-center gap-4">
-                <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-emerald-100/80 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-cyan-50 to-violet-100 text-blue-600 ring-1 ring-blue-100 dark:from-blue-950/60 dark:to-violet-950/60 dark:text-blue-300 dark:ring-blue-900">
                   <Icon className="size-5" />
                 </span>
                 <div>
@@ -235,7 +248,7 @@ export function App() {
         </aside>
 
         {/* Card only on desktop; phones and tablets show the form directly on the background */}
-        <main className="border-t border-emerald-900/10 pt-8 lg:rounded-2xl lg:border lg:border-white/80 lg:bg-card/95 lg:p-8 lg:shadow-xl lg:shadow-sky-900/5 lg:backdrop-blur dark:border-border">
+        <main className="border-t border-blue-900/10 pt-8 lg:rounded-2xl lg:border lg:border-white/80 lg:bg-card/95 lg:p-8 lg:shadow-xl lg:shadow-sky-900/5 lg:backdrop-blur dark:border-border">
           {submitted ? (
             <div className="flex flex-col items-center gap-5 py-12 text-center">
               <span className="flex size-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-300">
@@ -482,7 +495,7 @@ export function App() {
                   type="submit"
                   size="lg"
                   disabled={submitting}
-                  className="group h-12 w-full rounded-xl bg-linear-to-r from-emerald-500 to-emerald-700 text-base font-semibold text-white shadow-lg shadow-emerald-700/20 hover:from-emerald-600 hover:to-emerald-800"
+                  className="group h-12 w-full rounded-xl bg-linear-to-r from-cyan-500 via-blue-600 to-violet-600 text-base font-semibold text-white shadow-lg shadow-blue-600/25 hover:from-cyan-600 hover:via-blue-700 hover:to-violet-700"
                 >
                   {submitting ? (
                     <>
